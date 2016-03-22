@@ -409,7 +409,7 @@ class Test
         $question = $this->getQuestion();
         $res = [];
         if (is_array($this->_answer)) {
-            $result = array_intersect($this->_answer, array_keys($question['answers']));
+            $result = array_intersect(array_keys($question['answers']), $this->_answer);
             foreach ($result as $answ) {
                 if ($question['answers'][$answ] == 1) {
                     $res[] = 1;
@@ -426,7 +426,8 @@ class Test
         }
 
         $uniqueRes = array_unique($res);
-        if (count($uniqueRes) === 1 && $uniqueRes[0] == 1) {
+        $countCorrectAnwers = array_count_values($question['answers'])[1];
+        if (count($uniqueRes) === 1 && $uniqueRes[0] == 1 && $countCorrectAnwers === count($result)) {
             $_SESSION["results"][$this->_order[$this->_currIndexQuestion]] = 1;
         } else {
             $_SESSION["results"][$this->_order[$this->_currIndexQuestion]] = 0;
