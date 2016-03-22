@@ -419,6 +419,7 @@ class Test
                 }
             }
         } else {
+            $result[] = $this->_answer;
             if ($question['answers'][$this->_answer] == 1) {
                 $res[] = 1;
             } else {
