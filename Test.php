@@ -408,6 +408,7 @@ class Test
     {
         $question = $this->getQuestion();
         $res = [];
+        $result = [];
         if (is_array($this->_answer)) {
             $result = array_intersect(array_keys($question['answers']), $this->_answer);
             foreach ($result as $answ) {
