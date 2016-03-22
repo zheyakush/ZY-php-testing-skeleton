@@ -442,20 +442,20 @@ class Test
         $data = [];
         $xml = simplexml_load_file($file, 'SimpleXMLElement', LIBXML_NOCDATA);
         $data['name'] = isset($xml['name']) ? (string)$xml['name'] : $this->_activeCourse;
-
+        /** @var SimpleXMLElement $question */
         foreach ($xml->children() as $question) {
-            $a = 1;
-
             $answers = [];
             foreach ($question->children() as $nodeName => $nodeContent) {
                 if ("answer" !== $nodeName) {
                     continue;
                 }
                 if ($nodeContent->nodeType == XML_CDATA_SECTION_NODE) {
-                    $answers[(string)$nodeContent->textContent] = (isset($nodeContent['correct']) && (string)$nodeContent['correct'] == "true") ? 1 : 0;
+                    $questionText = (string)$nodeContent->textContent;
                 } else {
-                    $answers[(string)$nodeContent] = (isset($nodeContent['correct']) && (string)$nodeContent['correct'] == "true") ? 1 : 0;
+                    $questionText = (string)$nodeContent;
                 }
+                $answers[$questionText] = (isset($nodeContent['correct'])
+                    && (string)$nodeContent['correct'] == "true") ? 1 : 0;
             }
 
             $valuesRes = array_count_values(array_values($answers));

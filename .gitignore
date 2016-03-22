@@ -1,4 +1,6 @@
 .idea
 images
-test
+test/*
+!test/example1.yaml
+!test/example2.xml
 .htaccess

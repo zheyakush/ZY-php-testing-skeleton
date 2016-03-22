@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items name="test2">
+    <question>
+        <content>QUESTION 1</content>
+        <answer correct="">answer1</answer>
+        <answer correct="true">answer2</answer>
+        <answer correct="">answer3</answer>
+        <answer correct="">answer4</answer>
+    </question>
+    <question>
+        <content>QUESTION 2:
+                <img src="images/test.png"/>
+                <p>image description:</p>
+        </content>
+        <answer correct="true">answer1</answer>
+        <answer correct="">answer2</answer>
+        <answer correct="true">answer3</answer>
+        <answer correct="">answer4</answer>
+    </question>
+    <question>
+        <content>QUESTION 3</content>
+        <answer correct=""><![CDATA[<p>answer1</p>]]></answer>
+        <answer correct="true"><![CDATA[<p>answer2</p>]]></answer>
+        <answer correct=""><![CDATA[<p>answer3</p>]]></answer>
+    </question>
+</items>
