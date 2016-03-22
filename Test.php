@@ -450,11 +450,12 @@ class Test
                     continue;
                 }
                 if ($nodeContent->nodeType == XML_CDATA_SECTION_NODE) {
-                    $questionText = (string)$nodeContent->textContent;
+                    $answerText = (string)$nodeContent->textContent;
                 } else {
-                    $questionText = (string)$nodeContent;
+                    $answerText = (string)$nodeContent;
                 }
-                $answers[$questionText] = (isset($nodeContent['correct'])
+                $answerText = trim(preg_replace("/\\s+/", " ", $answerText));
+                $answers[$answerText] = (isset($nodeContent['correct'])
                     && (string)$nodeContent['correct'] == "true") ? 1 : 0;
             }
 
