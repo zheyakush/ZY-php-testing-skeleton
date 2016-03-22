@@ -1,0 +1,144 @@
+<?php
+ini_set('display_errors', 1);
+require_once "./Test.php";
+session_start();
+$test = new Test();
+$question = $test->getQuestion();
+?>
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<?php switch ($test->getCurrentStep()): ?>
+<?php case 1: ?>
+    <div id="step1">
+        <h1>Choose test</h1>
+
+        <div class="content">
+            <label for="course">Course :</label>
+
+            <form action="">
+                <select name="course" id="course">
+                    <?php foreach ($test->getAvailableCourses() as $index => $name) : ?>
+                        <option value="<?php echo $index; ?>"><?php echo $name["name"] ?></option>
+                    <?php endforeach; ?>
+                </select>
+                <button type="submit" name="mode" value="test">Test</button>
+                <button type="submit" name="mode" value="review">Review</button>
+            </form>
+        </div>
+    </div>
+    <?php break;
+case 2: ?>
+    <div id="step2">
+
+        <h1 class="title"><?php echo $test->getCourseData("name") ?></h1>
+
+        <div class="content quizcontainer">
+            <div class="question-head">
+                <h3 class="label"><span>Question <?php echo $test->getCurrIndexQuestion() + 1; ?> /
+                    <?php echo count($test->getCourseData("questions")); ?></span></h3>
+            </div>
+
+
+            <form action="" method="post">
+                <input name="course" type="hidden" value="<?php echo $test->getActiveCourse() ?>"/>
+                <input name="q" type="hidden" value="<?php echo $test->getCurrIndexQuestion() ?>"/>
+
+                <p class="mlw_qmn_question"><?php echo $question["text"]; ?></p>
+                <?php $i = 0; ?>
+                <?php foreach ($question["answers"] as $index => $name) : ?>
+                    <div class="row">
+                        <?php if($test->isRadioBtn()) : ?>
+                            <input type="radio" <?php if ($test->hasAnswer()) { echo "disabled=\"disabled\""; }?>
+                                   name="a" id="a<?php echo $i; ?>" value="<?php echo htmlentities($index); ?>"
+                                <?php echo $test->isChecked($index);?> />
+                        <?php else : ?>
+                            <input type="checkbox" <?php if($test->hasAnswer()) { echo "disabled=\"disabled\""; }?>
+                                <?php echo $test->isChecked($index);?>
+                                   name="a[]" id="a<?php echo $i; ?>" value="<?php echo htmlentities($index); ?>"/>
+                        <?php endif; ?>
+                        <label for="a<?php echo $i; ?>"
+                               class="<?php echo $test->getClass($index)?>"><?php echo htmlentities($index); ?></label>
+
+                    </div>
+                    <?php $i++; ?>
+                <?php endforeach; ?>
+                <?php if(!$test->hasAnswer()) : ?>
+                    <div class="actions clearfix">
+                        <a class="back" href="javascript:void(0)" onclick="window.location.replace(window.location.origin + window.location.pathname)">Reset</a>
+                        <button type="submit" id="check-answer">Proceed</button>
+
+                        <div class="footer">
+                            <span class="result">Current progress: </span>
+                            <span class="correct"><?php echo $test->getCorrectPercents(); ?>%</span>
+                            <span class="wrong"><?php echo $test->getWrongPercents(); ?>%</span>
+                        </div>
+                    </div>
+                <?php endif; ?>
+            </form>
+
+            <?php if($test->hasAnswer()) : ?>
+                <div class="actions clearfix">
+                    <form action="" method="post">
+                        <input name="course" type="hidden" value="<?php echo $test->getActiveCourse() ?>"/>
+                        <input name="q" type="hidden" value="<?php echo $test->getCurrIndexQuestion() + 1 ?>"/>
+                        <?php if ($test->isReviewMode()) : ?>
+                            <a class="back" href="javascript:void(0)" onclick="window.location.replace(window.location.origin + window.location.pathname)">Reset</a>
+                        <?php endif; ?>
+                        <button type="submit" id="next-question">Next</button>
+                    </form>
+                    <?php if (!$test->isReviewMode()) : ?>
+                    <div class="footer">
+                        <span class="result">Current progress: </span>
+                        <span class="correct"><?php echo $test->getCorrectPercents(); ?>%</span>
+                        <span class="wrong"><?php echo $test->getWrongPercents(); ?>%</span>
+                    </div>
+                    <?php endif; ?>
+                </div>
+            <?php endif; ?>
+        </div>
+
+    </div>
+    <?php break;
+case 3: ?>
+<div id="step3">
+
+    <h1>Results</h1>
+    <div class="content  quizcontainer">
+        <p><span class="label">Correct answers:</span> <?php echo $test->getCorrectCount(); ?>
+            (<?php echo $test->getCorrectPercents(); ?>%)</p>
+        <p><span class="label">Wrong answers:</span> <?php echo $test->getWrongCount(); ?>
+            (<?php echo $test->getWrongPercents(); ?>%)</p>
+    </div>
+    <div class="footer">
+        <a href="javascript:void(0)" onclick="window.location.replace(window.location.origin + window.location.pathname)">Restart</a>
+    </div>
+</div>
+
+    <?php break;
+endswitch; ?>
+</body>
+<script>
+    (function($){
+        $(document).ready(function() {
+            $("body").keydown(function(e) {
+                var keys = [49, 50, 51, 52, 53, 54, 55, 56, 57, 97, 98, 99, 100, 101, 102, 103, 104, 105];
+                var value = keys.indexOf(e.keyCode) >= 9 ? keys.indexOf(e.keyCode)-9 : keys.indexOf(e.keyCode);
+                if (value  != -1) {
+                    var el = $('input[type=radio],input [type=checkbox]').eq(value);
+                    $(el).trigger("click");
+                }
+                if (e.keyCode == 13) {
+                    $("form").submit();
+                }
+            });
+        });
+    })(jQuery);
+</script>
+</html>
