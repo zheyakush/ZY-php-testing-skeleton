@@ -1,6 +1,7 @@
 .idea
-images
 test/*
 !test/example1.yaml
 !test/example2.xml
+images/*
+!images/test.png
 .htaccess

@@ -12,6 +12,52 @@ $question = $test->getQuestion();
     <title></title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <link rel="stylesheet" href="css/styles.css">
+    <script>
+        (function($){
+            $(document).ready(function() {
+                $("body").keydown(function(e) {
+                    var keyCode = (e.which) ? e.which : e.keyCode;
+                    var keys = [49, 50, 51, 52, 53, 54, 55, 56, 57, 97, 98, 99, 100, 101, 102, 103, 104, 105];
+                    var value = keys.indexOf(keyCode) >= 9 ? keys.indexOf(keyCode)-9 : keys.indexOf(keyCode);
+                    if (value  != -1) {
+                        var el = $('input[type=radio],input[type=checkbox]').eq(value);
+                        if(!el.parents("div").hasClass("disabled")){
+                            if (el.is(':checked') && !el.is(':radio')) {
+                                el.prop("checked", false);
+                            } else {
+                                el.prop("checked", true);
+                            }
+                        }
+                    }
+                    if (keyCode == 13) {
+                        $("form").submit();
+                    }
+                });
+                $(".row").on("click", function(){
+                    if($(this).hasClass("disabled")) {
+                        return false;
+                    }
+
+                    $(".row").find("input[type='radio']").prop("chec1ked", false);
+                    var el = $(this).find("input");
+                    if (el.is(':checked') && !el.is(':radio')) {
+                        el.prop("checked", false);
+                    } else {
+                        el.prop("checked", true);
+                    }
+
+                })
+            });
+            document.Test = {};
+            document.Test.reset = function() {
+                if (confirm("Current progress will be lost. Are you sure?")) {
+                    window.location.replace(window.location.origin + window.location.pathname);
+                } else {
+                    return false;
+                }
+            };
+        })(jQuery);
+    </script>
 </head>
 <body>
 <?php switch ($test->getCurrentStep()): ?>
@@ -53,7 +99,7 @@ case 2: ?>
                 <p class="mlw_qmn_question"><?php echo $question["text"]; ?></p>
                 <?php $i = 0; ?>
                 <?php foreach ($question["answers"] as $index => $name) : ?>
-                    <div class="row">
+                    <div class="row <?php if($test->hasAnswer()) { echo "disabled"; }?>">
                         <?php if($test->isRadioBtn()) : ?>
                             <input type="radio" <?php if ($test->hasAnswer()) { echo "disabled=\"disabled\""; }?>
                                    name="a" id="a<?php echo $i; ?>" value="<?php echo htmlentities($index); ?>"
@@ -71,7 +117,7 @@ case 2: ?>
                 <?php endforeach; ?>
                 <?php if(!$test->hasAnswer()) : ?>
                     <div class="actions clearfix">
-                        <a class="back" href="javascript:void(0)" onclick="window.location.replace(window.location.origin + window.location.pathname)">Reset</a>
+                        <a class="back" href="javascript:void(0)" onclick="document.Test.reset()">Reset</a>
                         <button type="submit" id="check-answer">Proceed</button>
 
                         <div class="footer">
@@ -89,7 +135,7 @@ case 2: ?>
                         <input name="course" type="hidden" value="<?php echo $test->getActiveCourse() ?>"/>
                         <input name="q" type="hidden" value="<?php echo $test->getCurrIndexQuestion() + 1 ?>"/>
                         <?php if ($test->isReviewMode()) : ?>
-                            <a class="back" href="javascript:void(0)" onclick="window.location.replace(window.location.origin + window.location.pathname)">Reset</a>
+                            <a class="back" href="javascript:void(0)" onclick="document.Test.reset()">Reset</a>
                         <?php endif; ?>
                         <button type="submit" id="next-question">Next</button>
                     </form>
@@ -110,11 +156,19 @@ case 3: ?>
 <div id="step3">
 
     <h1>Results</h1>
-    <div class="content  quizcontainer">
-        <p><span class="label">Correct answers:</span> <?php echo $test->getCorrectCount(); ?>
-            (<?php echo $test->getCorrectPercents(); ?>%)</p>
-        <p><span class="label">Wrong answers:</span> <?php echo $test->getWrongCount(); ?>
-            (<?php echo $test->getWrongPercents(); ?>%)</p>
+    <div class="content quizcontainer">
+        <div class="details">
+            <p class="correct"><span class="label">Correct answers:</span> <?php echo $test->getCorrectCount(); ?>
+                (<?php echo $test->getCorrectPercents(); ?>%)</p>
+            <p class="wrong"><span class="label">Wrong answers:</span> <?php echo $test->getWrongCount(); ?>
+                (<?php echo $test->getWrongPercents(); ?>%)</p>
+        </div>
+        <div class="status <?php echo ($test->isPassed() ? "correct" : "wrong"); ?>">
+            <h1><?php echo $test->getStatus(); ?></h1>
+            <?php if(!$test->isPassed()) : ?>
+            <span class="info">required = <?php echo $test->getSuccessLimit() ?>%</span>
+            <?php endif; ?>
+        </div>
     </div>
     <div class="footer">
         <a href="javascript:void(0)" onclick="window.location.replace(window.location.origin + window.location.pathname)">Restart</a>
@@ -124,21 +178,4 @@ case 3: ?>
     <?php break;
 endswitch; ?>
 </body>
-<script>
-    (function($){
-        $(document).ready(function() {
-            $("body").keydown(function(e) {
-                var keys = [49, 50, 51, 52, 53, 54, 55, 56, 57, 97, 98, 99, 100, 101, 102, 103, 104, 105];
-                var value = keys.indexOf(e.keyCode) >= 9 ? keys.indexOf(e.keyCode)-9 : keys.indexOf(e.keyCode);
-                if (value  != -1) {
-                    var el = $('input[type=radio],input[type=checkbox]').eq(value);
-                    el.trigger("click");
-                }
-                if (e.keyCode == 13) {
-                    $("form").submit();
-                }
-            });
-        });
-    })(jQuery);
-</script>
 </html>

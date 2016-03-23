@@ -8,9 +8,10 @@
         <answer correct="">answer4</answer>
     </question>
     <question>
-        <content>QUESTION 2:
-                <img src="images/test.png"/>
-                <p>image description:</p>
+        <content>
+            QUESTION 2:
+            <div>image description:</div>
+            <img src="images/test.png"/>
         </content>
         <answer correct="true">answer1</answer>
         <answer correct="">answer2</answer>
