@@ -35,6 +35,9 @@ $question = $test->getQuestion();
                         $("form").submit();
                     }
                 });
+                $("input[type='radio'],input[type='checkbox'], label").on("click", function(e){
+                    event.stopPropagation();
+                });
                 $(".row").on("click", function(){
                     if($(this).hasClass("disabled")) {
                         return false;
