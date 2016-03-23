@@ -16,16 +16,21 @@ $question = $test->getQuestion();
         (function($){
             $(document).ready(function() {
                 $("body").keydown(function(e) {
+                    var keyCode = (e.which) ? e.which : e.keyCode;
                     var keys = [49, 50, 51, 52, 53, 54, 55, 56, 57, 97, 98, 99, 100, 101, 102, 103, 104, 105];
-                    var value = keys.indexOf(e.keyCode) >= 9 ? keys.indexOf(e.keyCode)-9 : keys.indexOf(e.keyCode);
+                    var value = keys.indexOf(keyCode) >= 9 ? keys.indexOf(keyCode)-9 : keys.indexOf(keyCode);
                     if (value  != -1) {
                         var el = $('input[type=radio],input[type=checkbox]').eq(value);
                         el.trigger("click");
                     }
-                    if (e.keyCode == 13) {
+                    if (keyCode == 13) {
                         $("form").submit();
                     }
                 });
+                $(".row").on("click", function(){
+                    $(".row").find("input").prop("checked", false);
+                    $(this).find("input").prop("checked", true);
+                })
             });
             document.Test = {};
             document.Test.reset = function() {
@@ -78,7 +83,7 @@ case 2: ?>
                 <p class="mlw_qmn_question"><?php echo $question["text"]; ?></p>
                 <?php $i = 0; ?>
                 <?php foreach ($question["answers"] as $index => $name) : ?>
-                    <div class="row">
+                    <div class="row <?php if($test->hasAnswer()) { echo "disabled"; }?>">
                         <?php if($test->isRadioBtn()) : ?>
                             <input type="radio" <?php if ($test->hasAnswer()) { echo "disabled=\"disabled\""; }?>
                                    name="a" id="a<?php echo $i; ?>" value="<?php echo htmlentities($index); ?>"

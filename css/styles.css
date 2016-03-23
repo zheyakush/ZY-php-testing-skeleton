@@ -72,6 +72,13 @@
 .row:nth-of-type(odd) {
     background: #f0f0f0;
 }
+.row:hover {
+    opacity: 0.7;
+    cursor: pointer;
+}
+.row.disabled:hover {
+    opacity: 1;
+}
 .actions {
     border-top: 1px solid #d4d7d9;
     background: #f0f0f0;
