@@ -21,10 +21,12 @@ $question = $test->getQuestion();
                     var value = keys.indexOf(keyCode) >= 9 ? keys.indexOf(keyCode)-9 : keys.indexOf(keyCode);
                     if (value  != -1) {
                         var el = $('input[type=radio],input[type=checkbox]').eq(value);
-                        if (el.is(':checked') && !el.is(':radio')) {
-                            el.prop("checked", false);
-                        } else {
-                            el.prop("checked", true);
+                        if(!el.parents("div").hasClass("disabled")){
+                            if (el.is(':checked') && !el.is(':radio')) {
+                                el.prop("checked", false);
+                            } else {
+                                el.prop("checked", true);
+                            }
                         }
                     }
                     if (keyCode == 13) {
