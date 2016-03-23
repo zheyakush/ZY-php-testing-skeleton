@@ -402,6 +402,27 @@ class Test
     }
 
     /**
+     * @return string
+     */
+    public function getPageTitle()
+    {
+        $title = "";
+        switch ($this->getCurrentStep()) {
+            case 1:
+                $title = "Choose test";
+                break;
+            case 2:
+                $title = "Test: " . $this->getCourseData("name");
+                break;
+            case 3:
+                $title = "Results";
+                break;
+        }
+
+        return $title;
+    }
+
+    /**
      * @param $array
      */
     protected function _shuffle(&$array)
