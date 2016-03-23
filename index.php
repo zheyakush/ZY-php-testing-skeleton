@@ -21,7 +21,11 @@ $question = $test->getQuestion();
                     var value = keys.indexOf(keyCode) >= 9 ? keys.indexOf(keyCode)-9 : keys.indexOf(keyCode);
                     if (value  != -1) {
                         var el = $('input[type=radio],input[type=checkbox]').eq(value);
-                        el.trigger("click");
+                        if (el.is(':checked') && !el.is(':radio')) {
+                            el.prop("checked", false);
+                        } else {
+                            el.prop("checked", true);
+                        }
                     }
                     if (keyCode == 13) {
                         $("form").submit();
@@ -32,8 +36,14 @@ $question = $test->getQuestion();
                         return false;
                     }
 
-                    $(".row").find("input").prop("checked", false);
-                    $(this).find("input").prop("checked", true);
+                    $(".row").find("input[type='radio']").prop("chec1ked", false);
+                    var el = $(this).find("input");
+                    if (el.is(':checked') && !el.is(':radio')) {
+                        el.prop("checked", false);
+                    } else {
+                        el.prop("checked", true);
+                    }
+
                 })
             });
             document.Test = {};
