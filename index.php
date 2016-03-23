@@ -28,6 +28,10 @@ $question = $test->getQuestion();
                     }
                 });
                 $(".row").on("click", function(){
+                    if($(this).hasClass("disabled")) {
+                        return false;
+                    }
+
                     $(".row").find("input").prop("checked", false);
                     $(this).find("input").prop("checked", true);
                 })
