@@ -81,6 +81,11 @@ class Test
     protected $_mode = "test";
 
     /**
+     * @var int
+     */
+    protected $_successLimit = 90;
+
+    /**
      * @return array
      */
     public function getOrder()
@@ -381,6 +386,22 @@ class Test
     }
 
     /**
+     * @return int
+     */
+    public function getSuccessLimit()
+    {
+        return $this->_successLimit;
+    }
+
+    /**
+     * @param int $successLimit
+     */
+    public function setSuccessLimit($successLimit)
+    {
+        $this->_successLimit = $successLimit;
+    }
+
+    /**
      * @param $array
      */
     protected function _shuffle(&$array)
@@ -490,5 +511,21 @@ class Test
         }
 
         return $innerXML;
+    }
+
+    /**
+     * @return string
+     */
+    public function getStatus()
+    {
+        return $this->isPassed() ? "PASSED" : "FAILED";
+    }
+
+    /**
+     * @return bool
+     */
+    public function isPassed()
+    {
+        return (float) $this->getCorrectPercents() >= (float) $this->_successLimit;
     }
 }
