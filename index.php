@@ -9,7 +9,19 @@ $question = $test->getQuestion();
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-    <title></title>
+    <title>
+        <?php switch ($test->getCurrentStep()): ?>
+        <?php case 1: ?>
+                Choose test
+                <?php break; ?>
+        <?php case 2: ?>
+                Test: <?php echo $test->getCourseData("name") ?>
+            <?php break; ?>
+        <?php case 3: ?>
+                Results
+            <?php break; ?>
+        <?php endswitch; ?>
+    </title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <link rel="stylesheet" href="css/styles.css">
     <script>
