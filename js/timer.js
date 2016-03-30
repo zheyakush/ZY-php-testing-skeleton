@@ -17,7 +17,7 @@
 
     Test.timer.toString = function() {
         var hours = Math.floor(Test.timer.seconds / 3600);
-        var minutes = Math.floor(Test.timer.seconds / 60);
+        var minutes = Math.floor((Test.timer.seconds-hours * 3600) / 60);
         var seconds = Test.timer.seconds - hours * 3600 - minutes * 60;
         hours = hours < 10 ? "0" + hours : hours;
         minutes = minutes < 10 ? "0" + minutes : minutes;
