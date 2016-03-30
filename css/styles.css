@@ -31,7 +31,7 @@
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    margin-top: 120px;
+    margin-top: 50px;
     border: 1px solid #cfd2d4;
     border-radius: 5px;
 }
@@ -85,7 +85,7 @@
     background: #f0f0f0;
     padding: 10px 10px 10px 20px;
 }
-.actions button, .actions .back {
+.actions button, .actions .back, .footer .back {
     background: #00ADEE;
     border: none;
     border-radius: 3px;
@@ -96,7 +96,8 @@
     text-align: left;
     width: 120px;
 }
-.actions .back {
+.actions .back,
+.footer .back{
     background: #888;
     text-decoration: none;
     margin-left: 10px;
@@ -136,6 +137,26 @@
     color: #888;
     display: inherit;
     position: fixed;
-    bottom: 20px;
+    bottom: 75px;
     right: 40px;
+}
+#step3 .footer {
+    width: 100%;
+    float: left;
+    line-height: 16px;
+}
+#step3 .footer {
+    border-top: 1px solid #d4d7d9;
+    background: #f0f0f0;
+    padding: 10px 0px 10px 0px;
+}
+#step3 .footer .back{
+    margin-right: 10px;
+}
+#step1 .actions button,
+#step2 .actions button {
+    margin-left: 10px;
+}
+#step1 .actions button:first-child {
+    background: rgba(216, 60, 82, 0.55);
 }

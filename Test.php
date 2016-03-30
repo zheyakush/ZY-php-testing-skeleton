@@ -363,6 +363,7 @@ class Test
                     ];
                 }
             }
+            ksort($this->_availableCourses);
             closedir($dirHandle);
         }
     }

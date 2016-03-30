@@ -6,16 +6,44 @@ session_start();
 /** @var Test $test */
 $test = new Test();
 
+
 switch ($test->getCurrentStep()) {
     case 2:
-        $file = "view/step2.php";
+        if (isAjax()) {
+            $html = includeOutput("view/step2/question-content.php");
+            echo json_encode([
+                "step" => $test->getCurrentStep(),
+                "html" => $html
+            ]);
+            return;
+        } else {
+            $file = "view/step2.php";
+        }
         break;
     case 3:
-        $file = "view/step3.php";
+        if (isAjax()) {
+            $html = includeOutput("view/step3.php");
+            echo json_encode([
+                "step" => $test->getCurrentStep(),
+                "html" => $html
+            ]);
+            return;
+        } else {
+            $file = "view/step3.php";
+        }
         break;
     case 1:
     default:
-        $file = "view/step1.php";
+        if (isAjax() && $test->isReviewMode()) {
+
+            $html = includeOutput("view/step3.php");
+            echo json_encode([
+                "redirect" => true
+            ]);
+            return;
+        } else {
+            $file = "view/step1.php";
+        }
 }
 
 
@@ -32,6 +60,37 @@ function includeOutput($filename)
 
     return $contents;
 }
+
+/**
+ * @return bool
+ */
+function isAjax()
+{
+    if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) &&
+        !empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&
+        strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest'
+    ) {
+
+        header('Content-Type: application/json');
+        return true;
+    }
+
+    return false;
+}
+
+/**
+ * @param $file
+ */
+function ajaxResponse($file)
+{
+    global $test;
+    $html = includeOutput($file);
+    echo json_encode([
+        "step" => $test->getCurrentStep(),
+        "html" => $html
+    ]);
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -46,8 +105,7 @@ function includeOutput($filename)
     <script src="js/main.js"></script>
 </head>
 <body>
-<div class="content">
-    <?php echo includeOutput($file) ?>
+<?php echo includeOutput($file) ?>
 </div>
 </body>
 </html>

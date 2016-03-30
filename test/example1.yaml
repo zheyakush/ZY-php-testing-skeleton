@@ -14,19 +14,19 @@ questions:
       answer 5: 1
       answer 2: 0
       answer 3: 0
-  2:
-    text: question 3
-    answers:
-      answer 5: 1
-      answer 1: 0
-      answer 2: 0
-      answer 3: 0
-      answer 4: 0
-  3:
-    text: question 4
-    answers:
-      answer 1: 1
-      answer 5: 1
-      answer 2: 1
-      answer 3: 0
-      answer 4: 0
+#  2:
+#    text: question 3
+#    answers:
+#      answer 5: 1
+#      answer 1: 0
+#      answer 2: 0
+#      answer 3: 0
+#      answer 4: 0
+#  3:
+#    text: question 4
+#    answers:
+#      answer 1: 1
+#      answer 5: 1
+#      answer 2: 1
+#      answer 3: 0
+#      answer 4: 0

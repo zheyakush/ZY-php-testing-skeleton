@@ -10,21 +10,31 @@
  */
 global $test;
 ?>
+<div id="step<?php echo $test->getCurrentStep() ?>">
+    <h1 class="title">Choose test</h1>
 
-<div id="step1">
-    <h1>Choose test</h1>
-
-    <div class="content">
-        <label for="course">Course :</label>
-
+    <div class="content quizcontainer">
+        <div class="question-head">
+            <h3 class="label"><span>Course :</span></h3>
+        </div>
         <form action="">
-            <select name="course" id="course">
-                <?php foreach ($test->getAvailableCourses() as $index => $name) : ?>
-                    <option value="<?php echo $index; ?>"><?php echo $name["name"] ?></option>
-                <?php endforeach; ?>
-            </select>
-            <button type="submit" name="mode" value="test">Test</button>
-            <button type="submit" name="mode" value="review">Review</button>
+            <p class="mlw_qmn_question">
+                <select name="course" id="course">
+                    <?php foreach ($test->getAvailableCourses() as $index => $name) : ?>
+                        <option value="<?php echo $index; ?>"><?php echo $name["name"] ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </p>
+            <div class="row">
+                <label for="">Time limit:</label>
+                <input type="text" id="timeLimit" name="timeLimit" value="0" />
+            </div>
+            <div class="actions clearfix">
+                <button type="submit" name="mode" value="test">Test</button>
+                <button type="submit" name="mode" value="review">Review</button>
+            </div>
+
+
         </form>
     </div>
 </div>

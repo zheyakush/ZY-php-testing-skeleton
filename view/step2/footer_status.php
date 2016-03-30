@@ -10,11 +10,10 @@
  */
 global $test;
 ?>
-
-<div id="step<?php echo $test->getCurrentStep() ?>">
-    <h1 class="title"><?php echo $test->getCourseData("name") ?></h1>
-
-    <div class="content quizcontainer">
-        <?php echo includeOutput("view/step2/question-content.php") ?>
+<?php if (!$test->isReviewMode()) : ?>
+    <div class="footer">
+        <span class="result">Current progress: </span>
+        <span class="correct"><?php echo $test->getCorrectPercents(); ?>%</span>
+        <span class="wrong"><?php echo $test->getWrongPercents(); ?>%</span>
     </div>
-</div>
+<?php endif; ?>
