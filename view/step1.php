@@ -25,10 +25,10 @@ global $test;
                     <?php endforeach; ?>
                 </select>
             </p>
-            <div class="row">
-                <label for="">Time limit:</label>
-                <input type="text" id="timeLimit" name="timeLimit" value="0" />
-            </div>
+<!--            <div class="row">-->
+<!--                <label for="">Time limit:</label>-->
+<!--                <input type="text" id="timeLimit" name="timeLimit" value="0" />-->
+<!--            </div>-->
             <div class="actions clearfix">
                 <button type="submit" name="mode" value="test">Test</button>
                 <button type="submit" name="mode" value="review">Review</button>
