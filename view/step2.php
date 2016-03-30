@@ -13,8 +13,14 @@ global $test;
 
 <div id="step<?php echo $test->getCurrentStep() ?>">
     <h1 class="title"><?php echo $test->getCourseData("name") ?></h1>
+    <div id="timer" class="inProgress"></div>
 
     <div class="content quizcontainer">
         <?php echo includeOutput("view/step2/question-content.php") ?>
     </div>
 </div>
+<script>
+    <?php if(!empty($test->getTimeLimit())) : ?>
+    Test.timer.setMinutes = <?php echo $test->getTimeLimit(); ?>;
+    <?php endif; ?>
+</script>

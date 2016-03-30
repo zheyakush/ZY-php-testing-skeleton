@@ -103,6 +103,7 @@ function ajaxResponse($file)
     <link rel="stylesheet" href="css/styles.css">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/timer.js"></script>
 </head>
 <body>
 <?php echo includeOutput($file) ?>

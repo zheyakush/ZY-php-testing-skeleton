@@ -58,6 +58,10 @@
         }
     };
     Test.proceed = function(btn) {
+        if (Test.timer.timeIsUp) {
+            alert("Your time is over! Reset your test and try again!");
+            return false;
+        }
         $.ajax({
             method: "POST",
             data: $(btn).parents("form").serialize(),
@@ -76,6 +80,10 @@
     };
 
     Test.next = function(btn) {
+        if (Test.timer.timeIsUp) {
+            alert("Your time is over! Reset your test and try again!");
+            return false;
+        }
         $.ajax({
             method: "POST",
             data: $(btn).parents("form").serialize(),

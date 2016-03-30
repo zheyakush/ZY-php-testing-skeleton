@@ -91,6 +91,11 @@ class Test
     protected $_successLimit = 90;
 
     /**
+     * @var int
+     */
+    protected $_timeLimit;
+
+    /**
      * @return array
      */
     public function getOrder()
@@ -183,6 +188,9 @@ class Test
         $this->_getAvailableCourses();
         if ($this->_currentStep === 2) {
             $this->_getCourseData();
+            if (isset($_GET['timeLimit'])) {
+                $this->_timeLimit = abs((int)$_GET['timeLimit']);
+            }
             $_SESSION['test'] = $this;
         } else {
             unset($_SESSION['test']);
@@ -434,6 +442,22 @@ class Test
         }
 
         return $title;
+    }
+
+    /**
+     * @return int
+     */
+    public function getTimeLimit()
+    {
+        return $this->_timeLimit;
+    }
+
+    /**
+     * @param int $timeLimit
+     */
+    public function setTimeLimit($timeLimit)
+    {
+        $this->_timeLimit = $timeLimit;
     }
 
     /**
