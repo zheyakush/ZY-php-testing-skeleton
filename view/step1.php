@@ -32,6 +32,7 @@ global $test;
             <div class="actions clearfix">
                 <button type="submit" name="mode" value="test">Test</button>
                 <button type="submit" name="mode" value="review">Review</button>
+                <button type="submit" name="mode" value="learn">Learn (beta)</button>
             </div>
 
 

@@ -35,6 +35,11 @@ class Test
     const MODE_TEST = "test";
 
     /**
+     *
+     */
+    const MODE_LEARNING = "learn";
+
+    /**
      * List of available courses
      * @var array
      */
@@ -115,7 +120,7 @@ class Test
      */
     public function setMode($mode)
     {
-        $availableModes = [self::MODE_TEST, self::MODE_REVIEW];
+        $availableModes = [self::MODE_TEST, self::MODE_REVIEW, self::MODE_LEARNING];
         if (in_array($mode, $availableModes)) {
             $this->_mode = $mode;
         } else {
@@ -129,6 +134,14 @@ class Test
     public function isReviewMode()
     {
         return $this->getMode() === self::MODE_REVIEW;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isLearnMode()
+    {
+        return $this->getMode() === self::MODE_LEARNING;
     }
 
     /**
@@ -459,6 +472,7 @@ class Test
                     $res[] = 1;
                 } else {
                     $res[] = 0;
+                    $this->_addToAdditionalLearning();
                 }
             }
         } else {
@@ -467,12 +481,13 @@ class Test
                 $res[] = 1;
             } else {
                 $res[] = 0;
+                $this->_addToAdditionalLearning();
             }
         }
 
         $uniqueRes = array_unique($res);
-        $countCorrectAnwers = array_count_values($question['answers'])[1];
-        if (count($uniqueRes) === 1 && $uniqueRes[0] == 1 && $countCorrectAnwers === count($result)) {
+        $countCorrectAnswers = array_count_values($question['answers'])[1];
+        if (count($uniqueRes) === 1 && $uniqueRes[0] == 1 && $countCorrectAnswers === count($result)) {
             $_SESSION["results"][$this->_order[$this->_currIndexQuestion]] = 1;
         } else {
             $_SESSION["results"][$this->_order[$this->_currIndexQuestion]] = 0;
@@ -548,6 +563,21 @@ class Test
      */
     public function isPassed()
     {
-        return (float) $this->getCorrectPercents() >= (float) $this->_successLimit;
+        return (float)$this->getCorrectPercents() >= (float)$this->_successLimit;
+    }
+
+    /**
+     * For learning mode adds question with wrong answer for additional learning
+     */
+    protected function _addToAdditionalLearning()
+    {
+        if (!$this->isLearnMode()) {
+            return false;
+        }
+
+        $this->_courseData['questions'][] = $this->_courseData['questions'][$this->_order[$this->_currIndexQuestion]];
+        $this->_order[] = count($this->_courseData['questions'])-1;
+        $_SESSION['test']->_courseData = $this->_courseData;
+        $_SESSION['test']->_order = $this->_order;
     }
 }
