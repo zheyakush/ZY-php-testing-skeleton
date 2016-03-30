@@ -45,9 +45,4 @@
         }, 1000);
     }
 
-    $(document).ready(function() {
-        Test.timer.init();
-        Test.timer.run();
-    });
-
 })(jQuery, Test);

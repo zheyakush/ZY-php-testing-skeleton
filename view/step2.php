@@ -23,4 +23,6 @@ global $test;
     <?php if(!empty($test->getTimeLimit())) : ?>
     Test.timer.setMinutes = <?php echo $test->getTimeLimit(); ?>;
     <?php endif; ?>
+    Test.timer.init();
+    Test.timer.run();
 </script>
