@@ -6,17 +6,36 @@
     clear: both;
     height: 0;
 }
-.clearfix { display: inline-block; }
-* html .clearfix { height: 1%; }
-.clearfix { display: block; }
+
+.clearfix {
+    display: inline-block;
+}
+
+* html .clearfix {
+    height: 1%;
+}
+
+.clearfix {
+    display: block;
+}
+
 .title {
     font-family: Arial;
     font-size: 18px;
     text-align: center;
 }
-.wrong, .red {color: red;}
-.correct, .green {color: green;}
-.blue {color: blue}
+
+.wrong, .red {
+    color: red;
+}
+
+.correct, .green {
+    color: green;
+}
+
+.blue {
+    color: blue
+}
 
 .footer {
     color: #333;
@@ -24,6 +43,7 @@
     font-weight: 600;
     line-height: 36px;
 }
+
 .quizcontainer {
     font-family: Arial;
     box-sizing: border-box;
@@ -31,20 +51,23 @@
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    margin-top: 120px;
+    margin-top: 50px;
     border: 1px solid #cfd2d4;
     border-radius: 5px;
 }
+
 .question-head {
     background: #f0f0f0;
     border-bottom: 1px solid #cfd2d4;
     padding: 8px 16px;
 }
+
 .question-head span {
     font-size: 14px;
     display: inline-block;
     width: 49%;
 }
+
 .question-head .label {
     font-weight: 600;
     color: #333;
@@ -52,10 +75,12 @@
     padding: 0;
     text-align: left;
 }
+
 .question-head .help-text {
     color: #7f8183;
     text-align: right;
 }
+
 .mlw_qmn_question {
     color: #333;
     font-size: 18px;
@@ -63,29 +88,35 @@
     padding: 0 16px 15px;
     margin-bottom: 0;
 }
+
 .row {
     color: #333;
     font-size: 14px;
     padding: 10px 15px;
     border-top: 1px dotted #d4d7d9;
 }
+
 .row:nth-of-type(odd) {
     background: #f0f0f0;
 }
+
 .row:hover {
     opacity: 0.7;
     cursor: pointer;
 }
+
 .row.disabled:hover {
     opacity: 1;
     cursor: default;
 }
+
 .actions {
     border-top: 1px solid #d4d7d9;
     background: #f0f0f0;
     padding: 10px 10px 10px 20px;
 }
-.actions button, .actions .back {
+
+.actions button, .actions .back, .footer .back {
     background: #00ADEE;
     border: none;
     border-radius: 3px;
@@ -96,46 +127,100 @@
     text-align: left;
     width: 120px;
 }
-.actions .back {
+
+.actions .back,
+.footer .back {
     background: #888;
     text-decoration: none;
     margin-left: 10px;
     width: 100px;
 }
+
 .qmn_check_answers label {
     display: block;
     padding: 10px 16px;
     border-bottom: 1px solid #d4d7d9;
     margin-top: -36px;
 }
+
 .qmn_check_answers label:nth-of-type(odd) {
     background: #f0f0f0;
 }
+
 .qmn_check_answers input[type="checkbox"] {
     margin-top: -5px;
 }
+
 #step3 .quizcontainer p {
     margin: 20px;
 }
+
 #step3 .label {
     width: 145px;
     padding-right: 20px;
     display: inline-block;
 }
+
 .details {
     float: left;
 }
+
 .status {
     float: right;
     margin: 10px;
     display: inline-block;
 
 }
+
 #step3 .info {
     font-size: 11px;
     color: #888;
     display: inherit;
     position: fixed;
-    bottom: 20px;
+    bottom: 75px;
     right: 40px;
+}
+
+#step3 .footer {
+    width: 100%;
+    float: left;
+    line-height: 16px;
+}
+
+#step3 .footer {
+    border-top: 1px solid #d4d7d9;
+    background: #f0f0f0;
+    padding: 10px 0px 10px 0px;
+}
+
+#step3 .footer .back {
+    margin-right: 10px;
+}
+
+#step1 .actions button,
+#step2 .actions button {
+    margin-left: 10px;
+}
+
+#step1 .actions button:first-child {
+    background: rgba(216, 60, 82, 0.55);
+}
+
+#timer {
+    text-align: center;
+    font-size: 36px;
+    font-weight: bold;
+    line-height: 42px;
+    display: list-item;
+}
+
+#timer.inProgress {
+    color: darkgreen;
+}
+
+#timer.runOut {
+    color: darkred;
+}
+.row input {
+    margin-left: 10px;
 }
