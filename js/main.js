@@ -1,6 +1,7 @@
 (function($) {
     $(document).ready(function() {
-        $("body").keydown(function(e) {
+        $(document).on("keydown", "body", function(e) {
+            console.log(1)
             var keyCode = (e.which) ? e.which : e.keyCode;
             var keys = [49, 50, 51, 52, 53, 54, 55, 56, 57, 97, 98, 99, 100, 101, 102, 103, 104, 105];
             var value = keys.indexOf(keyCode) >= 9 ? keys.indexOf(keyCode) - 9 : keys.indexOf(keyCode);
@@ -28,14 +29,14 @@
             }
         });
         $(document).on("click", "input[type='radio'],input[type='checkbox'], label", function(e) {
-            event.stopPropagation();
+            e.stopPropagation();
         });
         $(document).on("click", ".row", function() {
             if ($(this).hasClass("disabled")) {
                 return false;
             }
 
-            $(".row").find("input[type='radio']").prop("chec1ked", false);
+            $(".row").find("input[type='radio']").prop("checked", false);
             var el = $(this).find("input");
             if (el.is(':checked') && !el.is(':radio')) {
                 el.prop("checked", false);
