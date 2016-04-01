@@ -1,7 +1,6 @@
 (function($) {
     $(document).ready(function() {
         $(document).on("keydown", "body", function(e) {
-            console.log(1)
             var keyCode = (e.which) ? e.which : e.keyCode;
             var keys = [49, 50, 51, 52, 53, 54, 55, 56, 57, 97, 98, 99, 100, 101, 102, 103, 104, 105];
             var value = keys.indexOf(keyCode) >= 9 ? keys.indexOf(keyCode) - 9 : keys.indexOf(keyCode);
@@ -15,7 +14,6 @@
                     }
                 }
             }
-            console.log()
             if (keyCode == 13) {
                 $("form button:first").trigger("click");
             }
