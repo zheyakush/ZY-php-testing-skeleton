@@ -155,6 +155,11 @@
     margin: 20px;
 }
 
+#step2 .quizcontainer p span{
+    margin: 20px 0;
+    display: block;
+}
+
 #step3 .label {
     width: 145px;
     padding-right: 20px;
@@ -223,4 +228,9 @@
 }
 .row input {
     margin-left: 10px;
+}
+
+code {
+    display: block;
+    white-space: pre-wrap
 }
